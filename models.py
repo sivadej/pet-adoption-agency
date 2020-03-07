@@ -8,9 +8,12 @@ def connect_db(app):
 
 # Models/schema
 # Remember to db.create_all() if tables do not yet exist
-class Demo(db.Model):
-    __tablename__ = 'demos'
+class Pet(db.Model):
+    __tablename__ = 'pets'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    a_required_unique_string = db.Column(db.String(50), nullable=False, unique=True)
-    an_optional_number = db.Column(db.Integer, nullable=True)
-    a_required_default_ten = db.Column(db.Integer, nullable=False, default=10)
+    name = db.Column(db.String(50), nullable=False)
+    species = db.Column(db.String(50), nullable=False)
+    photo_url = db.Column(db.Text, nullable=True)
+    age = db.Column(db.Integer, nullable=False)
+    notes = db.Column(db.Text, nullable=True)
+    available = db.Column(db.Boolean, nullable=False, default=True)
