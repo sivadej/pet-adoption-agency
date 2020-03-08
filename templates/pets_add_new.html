@@ -2,19 +2,21 @@
 {% block title %}Add a Pet{% endblock %}
 
 {% block body %}
-	<h1>Add a Pet</h1>
-  <form id="add-pet-form" method="POST">
-		{{form.hidden_tag()}}
-		{% for field in form %}
-			<p>
-				{{ field.label }}
-				{{ field }}
-				{% for error in field.errors %}
-					{{ error }}
-				{% endfor %}
-			</p>
+<h1 class="page-title">Add a Pet</h1>
+<form id="add-pet-form" method="POST">
+	{{form.hidden_tag()}}
+	{% for field in form if field.widget.input_type != 'hidden' %}
+	<p>
+		{{ field.label }}
+		{{ field }}
+		{% for error in field.errors %}
+		{{ error }}
 		{% endfor %}
-	
-	<button type="submit">submit</button>
-  </form>
+	</p>
+	{% endfor %}
+	<button type="submit" class="btn btn-primary">Submit</button> <a href="/" class="btn btn-danger">Cancel</a>
+</form>
+{%for msg in get_flashed_messages()%}
+{{msg}}
+{%endfor%}
 {% endblock %}

@@ -25,12 +25,14 @@ def show_index():
 def add_pet():
     form = AddPetForm()
     if form.validate_on_submit():
-        name = form.name.data
-        species = form.species.data
-        photo_url = form.photo_url.data
-        age = form.age.data
-        notes = form.notes.data
-        flash(f'new pet added: {name} the {species}')
+        db.session.add(Pet(name = form.name.data,
+            species = form.species.data,
+            photo_url = form.photo_url.data,
+            age = form.age.data,
+            notes = form.notes.data))
+        db.session.commit()
+
+        flash(f'new pet added')
         return redirect('/add')
     else:
         return render_template('pets_add_new.html', form=form)
