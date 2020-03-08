@@ -2,18 +2,22 @@
 {% block title %}Adopt-A-Pet!{% endblock %}
 
 {% block body %}
-<h1 class="page-title">Pets<a href="/add" class="btn btn-success float-right">Add A Pet</a></h1>
-
-{% for pet in pets %}
-<div class="card">
-	<img class="card-img-top" src="{{ pet.photo_url }}">
-	<div class="card-body">
-		<h4 class="card-title">{{ pet.name }}</h4>
-		<p class="card-text">{{ pet.species }} - Age {{ pet.age }}
-			{% if pet.available %}
-			<p class="card-text"><a href="#" class="btn btn-primary">Adopt Me!</a></p>
-			{% endif %}
+<h1 class="page-title">Adopt-A-Pet!<a href="/add" class="btn btn-success float-right">Add A Pet</a></h1>
+<div class="card-columns">
+	{% for pet in pets %}
+	<div class="card">
+		<a href="/{{pet.id}}"><img class="card-img-top"
+				src="{% if pet.photo_url %}{{ pet.photo_url }}{%else%}/static/cat-placeholder-lg.svg{%endif%}"></a>
+		<div class="card-body">
+			<h4 class="card-title">{{ pet.name }}</h4>
+			<p class="card-text">{{ pet.species }} - Age {{ pet.age }}
+				{% if pet.available %}
+				<p class="card-text"><a href="/{{pet.id}}" class="btn btn-primary">Adopt Me!</a></p>
+				{% else %}
+				<p class="card-text"><a href="#" class="btn btn-secondary">Unavailable</a></p>
+				{% endif %}
+		</div>
 	</div>
+	{% endfor %}
 </div>
-{% endfor %}
 {% endblock %}

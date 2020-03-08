@@ -1,0 +1,24 @@
+{% extends '_base.html' %}
+{% block title %}{{pet.name}}{% endblock %}
+{% block body %}
+<h1 class="page-title text-center">Hi! I'm {{pet.name}}!</h1>
+<div class="card text-center">
+    <a href="/{{pet.id}}"><img class="card-img-top pet-detail"
+            src="{% if pet.photo_url %}{{ pet.photo_url }}{%else%}/static/cat-placeholder-lg.svg{%endif%}"></a>
+    <div class="card-body">
+        <h4 class="card-title">{{ pet.name }}</h4>
+        <p class="card-text">{{ pet.species }} - Age {{ pet.age }}
+            {% if pet.available %}
+            <p class="card-text"><a href="#" class="btn btn-primary">Adopt Me!</a></p>
+            {% else %}
+            <p class="card-text"><a href="#" class="btn btn-secondary">Unavailable for Adoption</a></p>
+            {% endif %}
+    </div>
+    {% if pet.notes %}
+    <div class="card-footer text-left">Notes: {{pet.notes}}</div>
+    {% endif %}
+</div>
+<div class="mt-4 text-center">
+    <a href="/{{pet.id}}/edit" class="btn btn-warning">Edit</a> <a href="/" class="btn btn-secondary">Home</a>
+</div>
+{% endblock %}
